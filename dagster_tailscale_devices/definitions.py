@@ -1,8 +1,16 @@
 import dagster as dg
 
-from dagster_tailscale_devices import assets  # noqa: TID252
+from dagster_tailscale_devices import assets, resources  # noqa: TID252
 
 all_assets = dg.load_assets_from_modules([assets])
 
 
-defs = dg.Definitions(assets=all_assets)
+defs = dg.Definitions(
+    assets=all_assets,
+    resources={
+        "tailscale": resources.TailscaleResource(
+            api_key=dg.EnvVar("TAILSCALE_API_KEY"),
+            tailnet=dg.EnvVar("TAILSCALE_TAILNET"),
+        ),
+    },
+)
