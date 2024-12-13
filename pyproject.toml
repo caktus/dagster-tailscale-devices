@@ -8,6 +8,7 @@ dependencies = [
     "dagster",
     "dagster-cloud",
     "dagster-pandas",
+    "psycopg",
 ]
 
 [project.optional-dependencies]

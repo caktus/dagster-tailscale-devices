@@ -1,6 +1,8 @@
+from urllib.parse import urljoin
+
 import dagster as dg
 import requests
-from urllib.parse import urljoin
+import sqlalchemy
 
 
 class TailscaleResource(dg.ConfigurableResource):
@@ -25,3 +27,13 @@ class TailscaleResource(dg.ConfigurableResource):
         response = self.client().get(url=self.url(path), *args, **kwargs)
         response.raise_for_status()
         return response.json()
+
+
+class PostgresResource(dg.ConfigurableResource):
+    """A resource that configures a SQLAlchemy engine."""
+
+    database_url: str
+
+    def engine(self) -> sqlalchemy.Engine:
+        """Return a SQLAlchemy engine connected to the configured PostgreSQL database."""
+        return sqlalchemy.create_engine(url=self.database_url)
