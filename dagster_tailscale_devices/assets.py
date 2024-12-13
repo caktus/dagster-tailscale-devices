@@ -8,7 +8,10 @@ import sqlalchemy.types as types
 from dagster_tailscale_devices import resources
 
 
-@dg.asset(description="A list of tailnet devices from Tailscale")
+@dg.asset(
+    description="A list of tailnet devices from Tailscale",
+    group_name="tailscale_assets",
+)
 def tailscale_devices(
     context: dg.AssetExecutionContext, tailscale: resources.TailscaleResource
 ) -> dict:
@@ -22,7 +25,9 @@ def tailscale_devices(
     return devices
 
 
-@dg.asset(description="A table of Tailscale devices over time")
+@dg.asset(
+    description="A table of Tailscale devices over time", group_name="tailscale_assets"
+)
 def tailscale_device_table(
     context: dg.AssetExecutionContext,
     db: resources.PostgresResource,
