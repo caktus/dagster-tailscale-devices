@@ -15,6 +15,7 @@ dependencies = [
 dev = [
     "dagster-webserver", 
     "pytest",
+    "requests-mock",
 ]
 
 [build-system]
